@@ -1,0 +1,8 @@
+package dir
+
+func (e *Entry) NewFile(name string, data string) {
+	e.Children[name] = &Entry{
+		Type: File,
+		Data: data,
+	}
+}
