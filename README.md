@@ -34,11 +34,16 @@ func main() {
 		log.Printf("Shell Error: %s", err.Error())
 		return
 	}
+
 	// set current working directory to root
-	s.Entry = s.Dir.Entries["root"]
+	s.Entry, err = s.Dir.GetDir("/root")
+	if err != nil {
+		log.Printf("Dir Error: %s", err.Error())
+		return
+	}
 
 	// input string (commands)
-	input := "touch test1 test2; ls"
+	input := "touch a; ls"
 	tokens := parser.Input(input)             // tokenize input
 	fmt.Print(command.RunCommands(s, tokens)) // run commands
 }
