@@ -9,6 +9,7 @@ func Input(input string) []string {
 		buf    strings.Builder
 	)
 
+	inputSize := len([]rune(input))
 	for i, w := range input {
 		switch w {
 		case ' ':
@@ -37,7 +38,7 @@ func Input(input string) []string {
 			if quote == '"' || quote == '\'' {
 				buf.WriteRune(w)
 				continue
-			} else if i+1 == len([]rune(input)) {
+			} else if i+1 == inputSize {
 				buf.WriteRune(w)
 				tokens = append(tokens, buf.String())
 				continue
@@ -70,7 +71,7 @@ func Input(input string) []string {
 				buf.WriteRune(w)
 			}
 		default:
-			if i+1 == len([]rune(input)) {
+			if i+1 == inputSize {
 				buf.WriteRune(w)
 				tokens = append(tokens, buf.String())
 			}
