@@ -7,7 +7,7 @@ import (
 	"github.com/tt22oo/fakeshell/shell/proc"
 )
 
-func parseDir(data []byte, dir *dir.Dir) error {
+func parseDir(data []byte, dir *dir.Directory) error {
 	dir.Mu.Lock()
 	defer dir.Mu.Unlock()
 	return json.Unmarshal(data, &dir.Entries)
