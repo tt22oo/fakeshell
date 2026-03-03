@@ -1,6 +1,6 @@
 ## Fake Shell
 Supported Commands:
-`ls`, `touch`
+`ls`, `cd`, `touch`, `mkdir`
 
 ## Example
 ```go
@@ -19,7 +19,8 @@ import (
 func main() {
 	// initialize shell configuration
 	cfg := &shell.Config{
-		DirPath: "configs/dir.json",
+		HomePath: "/root",
+		DirPath:  "configs/dir.json",
 		Proc: &loader.ProcConfig{
 			ProcessPath: "configs/proc/process.json",
 			CpuInfoPath: "configs/proc/cpuinfo.txt",
@@ -32,13 +33,6 @@ func main() {
 	s, err := cfg.New()
 	if err != nil {
 		log.Printf("Shell Error: %s", err.Error())
-		return
-	}
-
-	// set current working directory to root
-	s.Entry, err = s.Dir.GetDir("/root")
-	if err != nil {
-		log.Printf("Dir Error: %s", err.Error())
 		return
 	}
 
