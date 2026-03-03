@@ -4,14 +4,17 @@ import (
 	"fmt"
 
 	"github.com/tt22oo/fakeshell/shell"
+	"github.com/tt22oo/fakeshell/shell/command/file"
 	"github.com/tt22oo/fakeshell/shell/proc"
 )
 
 type command func(s *shell.Shell, cmd []string) (string, int)
 
 var commands = map[string]command{
-	"ls":    ls,
-	"touch": touch,
+	"ls":    file.Ls,
+	"cd":    file.Cd,
+	"touch": file.Touch,
+	"mkdir": file.Mkdir,
 }
 
 func runCommand(s *shell.Shell, cmd []string) (string, int) {
