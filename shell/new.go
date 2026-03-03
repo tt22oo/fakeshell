@@ -9,20 +9,19 @@ import (
 )
 
 type Shell struct {
-	User  string
-	Entry *dir.Entry
-	Dir   dir.Dir
-	Proc  proc.Proc
+	User string
+	Dir  dir.Directory
+	Proc proc.Proc
 }
 
 type Config struct {
-	DirPath string
-	Proc    *loader.ProcConfig
+	HomePath string
+	DirPath  string
+	Proc     *loader.ProcConfig
 }
 
 func (cfg *Config) New() (*Shell, error) {
 	var s Shell
-
 	err := loader.Dir(cfg.DirPath, &s.Dir)
 	if err != nil {
 		return nil, fmt.Errorf("Read Dir Error: %s", err.Error())
@@ -31,6 +30,12 @@ func (cfg *Config) New() (*Shell, error) {
 	err = cfg.Proc.Proc(&s.Proc)
 	if err != nil {
 		return nil, fmt.Errorf("Read Proc Error: %s", err.Error())
+	}
+
+	s.Dir.HomePath = cfg.HomePath
+	s.Dir.Entry, err = s.Dir.GetEntry(cfg.HomePath)
+	if err != nil {
+		return nil, fmt.Errorf("Home Directory Error: %s", err.Error())
 	}
 
 	return &s, nil
