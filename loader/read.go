@@ -52,7 +52,7 @@ func (cfg *ProcConfig) Proc(proc *proc.Proc) error {
 	return nil
 }
 
-func Dir(path string, dir *dir.Dir) error {
+func Dir(path string, dir *dir.Directory) error {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return err
